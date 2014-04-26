@@ -11,5 +11,3 @@ function frame() {
 	renderer.render(stage);
 }
 
-// Connect to the server
-var socket = io.connect('http://localhost/');

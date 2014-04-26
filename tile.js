@@ -1,6 +1,6 @@
 function Tile(type, resistance) {
-	this.type = type;
-	this.resistance = resistance;
+	this.t = type;
+	this.r = resistance;
 }
 
 module.exports = Tile;
