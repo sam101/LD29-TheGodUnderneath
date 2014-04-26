@@ -5,9 +5,11 @@ function init(data) {
 	game.canvas.width = 16 * TILE_SIZE;
 	game.canvas.height = 12 * TILE_SIZE;	
 	
+	game.cursor = new Cursor();
+	game.goal = new Goal(data.goal);
 	game.player = new Player(data.player);
 	game.world = new World(data.tiles);
-	game.goal = new Goal(data.goal);
+	
 	
 	game.started = true;
 	
@@ -42,6 +44,7 @@ function draw() {
 	if (! game.started) {
 		return;
 	}
+	
 	frame();
 	
 	game.canvas.fillStyle = "rgba(0,0,0,1)";
@@ -49,6 +52,7 @@ function draw() {
 
 	game.world.draw(game.canvas);
 
+	game.cursor.draw(game.canvas);
 	game.player.draw(game.canvas);
 	game.goal.draw(game.canvas);
 	
