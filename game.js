@@ -17,13 +17,19 @@ function findWorld(socket) {
 
 function addPlayerToWorld(socket, callback) {
 	var world = findWorld(socket);
+	world.addPlayer(socket);
 	socket.set('world', world, callback);
 }
 
 exports.handlePlayer = function(socket) {
 	addPlayerToWorld(socket, function() {
 		socket.get('world', function(err, world) {
-			socket.emit('worldData', world.tiles);					
+			var player = world.getPlayer(socket);
+			var initialData = {
+				tiles: world.tiles,
+				player: player
+			};
+			socket.emit('initialData', initialData);					
 		});
 	});
 };

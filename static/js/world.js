@@ -11,3 +11,7 @@ World.prototype.draw = function(canvas) {
 		}
 	}
 };
+
+World.prototype.updateTile = function(x, y, tile) {
+	this.data[y][x] = tile;
+};
