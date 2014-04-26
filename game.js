@@ -24,12 +24,25 @@ function addPlayerToWorld(socket, callback) {
 exports.handlePlayer = function(socket) {
 	addPlayerToWorld(socket, function() {
 		socket.get('world', function(err, world) {
+			if (err) {
+				return;
+			}
+			
 			var player = world.getPlayer(socket);
 			var initialData = {
 				tiles: world.tiles,
 				player: player
 			};
 			socket.emit('initialData', initialData);					
+		});
+	});
+	
+	socket.on('attack', function(x, y) {
+		socket.get('world', function(err, world) {
+			if (err) {
+				return;
+			}			
+			world.attackTile(socket, x, y);
 		});
 	});
 };

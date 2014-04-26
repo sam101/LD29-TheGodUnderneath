@@ -6,6 +6,7 @@ var random = require('./random');
 function Player(socket, world) {
 	this.x = random.randInt(0, world.width);
 	this.y = random.randInt(0, world.height);
+	this.isGod = false;
 	console.log("Player position : (" + this.x + "," + this.y + ")");
 	// TODO: check distance
 }

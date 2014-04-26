@@ -7,5 +7,7 @@ socket.on('initialData', function(data) {
 });
 
 socket.on('tileData', function(data) {
-	game.world.updateTile(data.x, data.y, data.tile);
+	if (game.started) {
+		game.world.updateTile(data.x, data.y, data.tile);
+	}
 });
