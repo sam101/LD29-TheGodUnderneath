@@ -4,11 +4,11 @@ var common = require('./common');
 var random = require('./random');
 
 function Player(socket, world) {
-	this.x = random.randInt(0, world.width);
-	this.y = random.randInt(0, world.height);
 	this.isGod = false;
-	console.log("Player position : (" + this.x + "," + this.y + ")");
-	// TODO: check distance
+	do {
+		this.x = random.randInt(0, world.width);
+		this.y = random.randInt(0, world.height);
+	} while(this.distance(world.goal.x, world.goal.y) < common.MIN_DISTANCE);
 }
 
 Player.prototype.distance = function(x, y) {

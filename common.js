@@ -5,3 +5,5 @@ exports.MIN_RES = 50;
 exports.MAX_RES = 100;
 
 exports.MIN_PLAYERS = 2;
+
+exports.MIN_DISTANCE = 10;

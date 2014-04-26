@@ -1,3 +1,4 @@
+var Goal = require('./goal');
 var Player = require('./player');
 var Tile = require('./tile');
 
@@ -22,6 +23,7 @@ World.prototype.generate = function() {
 			this.tiles[i][j] = new Tile(0, random.randInt(common.MIN_RES, common.MAX_RES));
 		}
 	}
+	this.goal = new Goal();
 };
 
 World.prototype.isFull = function() {
