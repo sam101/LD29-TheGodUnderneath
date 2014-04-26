@@ -1,13 +1,20 @@
-var screenW = $(document).width(),screenH = $(document).height();
-var renderer = PIXI.autoDetectRenderer(736, 480);
-document.body.appendChild(renderer.view);
-
-var stage = new PIXI.Stage(0x66FF99);
-
-requestAnimFrame(frame);
-// Called each frame of the game
-function frame() {
-	requestAnimFrame(frame);
-	renderer.render(stage);
+var game = {};
+function init(data) {
+	
+	game.canvasElement = document.getElementById("game");
+	game.canvas = game.canvasElement.getContext("2d");
+	game.canvas.width = 16 * TILE_SIZE;
+	game.canvas.height = 12 * TILE_SIZE;	
+	
+	game.world = new World(data);
+	
+	window.requestAnimationFrame(frame);
 }
 
+function frame() {
+	game.canvas.fillStyle = "rgba(0,0,0,1)";
+	game.canvas.clearRect(0, 0, game.canvas.width, game.canvas.height);
+	game.world.draw(game.canvas);
+	
+	window.requestAnimationFrame(frame);
+} 
