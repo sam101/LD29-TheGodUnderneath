@@ -7,6 +7,11 @@ socket.on('initialData', function(data) {
 	init(data);
 });
 
+socket.on('disconnect', function() {
+	game.started = false;
+	$('#info').html('Waiting for server...');
+});
+
 socket.on('waitingForPlayers', function() {
 	game.started = false;
 	$('#info').html('Waiting for players...');

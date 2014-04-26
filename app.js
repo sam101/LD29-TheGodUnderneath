@@ -8,7 +8,7 @@ var game = require('./game');
 var app = express();
 var server = http.createServer(app);
 var io = require('socket.io').listen(server);
-
+io.set('log level', 1);
 
 app.get('/', function(req, res) {
 	res.render('index');
