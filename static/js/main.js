@@ -7,7 +7,8 @@ function init(data) {
 	
 	game.player = new Player(data.player);
 	game.world = new World(data.tiles);
-
+	game.goal = new Goal(data.goal);
+	
 	game.started = true;
 	
 	game.keyboard = {
@@ -26,24 +27,30 @@ function init(data) {
 	window.addEventListener('keydown',function(event) { event.preventDefault(); },false);	
 	
 	window.requestAnimationFrame(draw);
-	setInterval(frame, 40);
+
+	game.frameCount = 0;
 }
 function frame() {
-	if (! game.started) {
-		return;
+	game.frameCount++;
+	if (game.frameCount == 2) {
+		game.player.frame(game.keyboard);	
+		
+		game.frameCount = 0;
 	}
-	game.player.frame(game.keyboard);	
 }
 function draw() {
 	if (! game.started) {
 		return;
 	}
+	frame();
 	
 	game.canvas.fillStyle = "rgba(0,0,0,1)";
 	game.canvas.clearRect(0, 0, game.canvas.width, game.canvas.height);
 
 	game.world.draw(game.canvas);
+
 	game.player.draw(game.canvas);
+	game.goal.draw(game.canvas);
 	
 	window.requestAnimationFrame(draw);
 } 

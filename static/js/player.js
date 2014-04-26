@@ -13,7 +13,7 @@ Player.prototype.attack = function(x, y) {
 
 		game.world.data[y][x].r -= 3;
 				
-		if (this.attackState.n == 7 || game.world[data][y][x].r <= 0) {
+		if (this.attackState.n == 7 || game.world.data[y][x].r <= 0) {
 			socket.emit('attack', x, y);
 			this.attackState.n = 0;
 		}

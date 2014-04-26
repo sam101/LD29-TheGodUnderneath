@@ -61,6 +61,7 @@ World.prototype.sendTileChanged = function(x,y) {
 World.prototype.sendInitialData = function(socket) {
 	var initialData = {
 		tiles: this.tiles,
+		goal: this.goal,
 		player: this.players[socket.id]
 	};
 	socket.emit('initialData', initialData);					
