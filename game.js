@@ -1,5 +1,5 @@
 var World = require('./world');
-
+var common = require('./common');
 worlds = [new World()];
 
 function findWorld(socket) {
@@ -28,13 +28,27 @@ exports.handlePlayer = function(socket) {
 				return;
 			}
 			
-			var player = world.getPlayer(socket);
-			var initialData = {
-				tiles: world.tiles,
-				player: player
-			};
-			socket.emit('initialData', initialData);					
+			if (world.size > common.MIN_PLAYERS) {
+				world.sendInitialData(socket);		
+			}
+			else if (world.size == common.MIN_PLAYERS) {
+				for (var key in world.sockets) {
+					world.sendInitialData(world.sockets[key]);
+				}
+			}
+			else {
+				socket.emit('waitingForPlayers');
+			}
 		});
+	});
+	
+	socket.on('disconnect', function() {
+		socket.get('world', function(err, world) {
+			if (err) {
+				return;
+			}			
+			world.delPlayer(world);
+		});		
 	});
 	
 	socket.on('attack', function(x, y) {

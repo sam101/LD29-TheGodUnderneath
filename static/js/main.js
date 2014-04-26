@@ -29,9 +29,16 @@ function init(data) {
 	setInterval(frame, 40);
 }
 function frame() {
+	if (! game.started) {
+		return;
+	}
 	game.player.frame(game.keyboard);	
 }
 function draw() {
+	if (! game.started) {
+		return;
+	}
+	
 	game.canvas.fillStyle = "rgba(0,0,0,1)";
 	game.canvas.clearRect(0, 0, game.canvas.width, game.canvas.height);
 

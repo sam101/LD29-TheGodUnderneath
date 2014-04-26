@@ -56,6 +56,15 @@ World.prototype.sendTileChanged = function(x,y) {
 	}
 };
 
+World.prototype.sendInitialData = function(socket) {
+	var initialData = {
+		tiles: this.tiles,
+		player: this.players[socket.id]
+	};
+	socket.emit('initialData', initialData);					
+	
+};
+
 World.prototype.movePlayer = function(socket, x, y) {
 	var player = this.players[socket.id];
 	
@@ -98,6 +107,12 @@ World.prototype.delPlayer = function(socket) {
 	this.size--;
 	delete this.players[socket.id];
 	delete this.sockets[socket.id];
+	
+	if (this.size < common.MIN_PLAYERS) {
+		for (var key in this.sockets) {
+			this.sockets[key].emit('waitingForPlayers');
+		}
+	}
 };
 
 
