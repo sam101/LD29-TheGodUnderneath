@@ -1,0 +1,24 @@
+{
+  "name": "TheGodUnderneath",
+  "version": "0.0.1",
+  "description": "TheGodUnderneath ================",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/sam101/TheGodUnderneath.git"
+  },
+  "author": "Samuel Lepetit",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/sam101/TheGodUnderneath/issues"
+  },
+  "homepage": "https://github.com/sam101/TheGodUnderneath",
+  "dependencies": {
+    "express": "^4.1.0",
+    "socket.io": "^0.9.16",
+    "optimist": "^0.6.1"
+  }
+}
