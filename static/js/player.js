@@ -25,6 +25,10 @@ Player.prototype.attack = function(x, y) {
 };
 
 Player.prototype.move = function(x, y) {
+	if (x < 0 || x >= WIDTH || y < 0 || y >= HEIGHT) {
+		return;
+	}
+	
 	if (game.world.data[y][x].r > 0) {
 		this.attack(x,y);
 	}

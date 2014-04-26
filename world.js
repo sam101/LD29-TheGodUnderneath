@@ -101,7 +101,7 @@ World.prototype.attackTile = function(socket, x, y) {
 	
 	var tile = this.tiles[y][x];
 	if (tile.r > 0) {
-		tile.r -= 21;
+		tile.removeStrength(21);
 	}
 	this.sendTileChanged(x, y);
 };
@@ -115,6 +115,30 @@ World.prototype.delPlayer = function(socket) {
 		for (var key in this.sockets) {
 			this.sockets[key].emit('waitingForPlayers');
 		}
+	}
+};
+
+World.prototype.addStrengthToTile = function(socket, x, y) {
+	var player = this.players[socket.id];
+	
+	if (! player.isGod) {
+		return;
+	}
+	
+	if (tile.r < 100) {
+		tile.addStrength(21);
+	}
+};
+
+World.prototype.removeStrengthToTile = function(socket, x, y) {
+	var player = this.players[socket.id];
+	
+	if (! player.isGod) {
+		return;
+	}
+	
+	if (tile.r > 0) {
+		tile.removeStrength(21);
 	}
 };
 
