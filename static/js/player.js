@@ -1,6 +1,6 @@
 function Player(data) {
 	this.data = data;
-	this.attackState = {};
+	this.attackState = {n: 0};
 }
 
 Player.prototype.draw = function(canvas) {
@@ -13,8 +13,9 @@ Player.prototype.attack = function(x, y) {
 
 		game.world.data[y][x].r -= 4;
 		
-		if (n == 5 || game.world[data][y][x].r <= 0) {
+		if (this.attackState.n == 5 || game.world[data][y][x].r <= 0) {
 			socket.emit('attack', x, y);
+			this.attackState.n = 0;
 		}
 	}
 	else {

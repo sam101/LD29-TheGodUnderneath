@@ -19,7 +19,7 @@ World.prototype.generate = function() {
 	for (var i = 0; i < this.height; i++) {
 		this.tiles[i] = [];
 		for (var j = 0; j < this.width; j++) {
-			this.tiles[i][j] = new Tile(0, random.randInt(0,100));
+			this.tiles[i][j] = new Tile(0, random.randInt(common.MIN_RES, common.MAX_RES));
 		}
 	}
 };
