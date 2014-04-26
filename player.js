@@ -11,4 +11,8 @@ function Player(socket, world) {
 	// TODO: check distance
 }
 
+Player.prototype.distance = function(x, y) {
+	return Math.abs(Math.floor(this.y - y + this.x - x));
+};
+
 module.exports = Player;

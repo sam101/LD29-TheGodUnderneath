@@ -11,9 +11,9 @@ Player.prototype.attack = function(x, y) {
 	if (this.attackState.x == x && this.attackState.y == y) {
 		this.attackState.n++;
 
-		game.world.data[y][x].r -= 4;
-		
-		if (this.attackState.n == 5 || game.world[data][y][x].r <= 0) {
+		game.world.data[y][x].r -= 3;
+				
+		if (this.attackState.n == 7 || game.world[data][y][x].r <= 0) {
 			socket.emit('attack', x, y);
 			this.attackState.n = 0;
 		}
@@ -31,6 +31,7 @@ Player.prototype.move = function(x, y) {
 	else {
 		this.data.x = x;
 		this.data.y = y;
+		socket.emit('move', x, y);
 	}
 };
 

@@ -26,7 +26,7 @@ function init(data) {
 	window.addEventListener('keydown',function(event) { event.preventDefault(); },false);	
 	
 	window.requestAnimationFrame(draw);
-	setInterval(frame, 50);
+	setInterval(frame, 40);
 }
 function frame() {
 	game.player.frame(game.keyboard);	

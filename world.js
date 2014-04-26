@@ -56,6 +56,21 @@ World.prototype.sendTileChanged = function(x,y) {
 	}
 };
 
+World.prototype.movePlayer = function(socket, x, y) {
+	var player = this.players[socket.id];
+	
+	if (player.isGod) {
+		return;
+	}
+	
+	if (player.distance(x, y) != 1) {
+		return;
+	}
+	
+	player.x = x;
+	player.y = y;
+};
+
 World.prototype.attackTile = function(socket, x, y) {
 	if (x < 0 || x >= common.WIDTH || y < 0 || y >= common.HEIGHT) {
 		return;
@@ -67,16 +82,16 @@ World.prototype.attackTile = function(socket, x, y) {
 		return;
 	}
 	
-	var tile = this.tiles[y][x];
-	
-	// TODO: Check player
-
-	if (tile.r > 0) {
-		tile.r -= 20;
+	if (player.distance(x, y) != 1) {
+		console.log("Cheating tentative by " + socket.id + "? :" + player.distance(x, y));
+		return;
 	}
-		
-	this.sendTileChanged(x, y);
 	
+	var tile = this.tiles[y][x];
+	if (tile.r > 0) {
+		tile.r -= 21;
+	}
+	this.sendTileChanged(x, y);
 };
 
 World.prototype.delPlayer = function(socket) {

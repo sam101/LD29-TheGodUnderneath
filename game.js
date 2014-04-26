@@ -45,6 +45,15 @@ exports.handlePlayer = function(socket) {
 			world.attackTile(socket, x, y);
 		});
 	});
+	
+	socket.on('move', function(x, y) {
+		socket.get('world', function(err, world) {
+			if (err) {
+				return;
+			}			
+			world.movePlayer(socket, x, y);
+		});		
+	});
 };
 
 exports.use = function(io) {
