@@ -50,7 +50,11 @@ World.prototype.addPlayer = function(socket) {
 
 World.prototype.delPlayer = function(socket) {
 	console.log('Remove player ' + socket.id + ' from world ' + this.id);
-
+	
+	if (! this.players[socket.id]) {
+		return;
+	}
+	
 	this.size--;
 	delete this.players[socket.id];
 	delete this.sockets[socket.id];
@@ -233,7 +237,7 @@ World.prototype.sendInitialData = function(socket) {
 		size: this.size,
 		player: this.players[socket.id]
 	};
-	socket.emit('initialData', initialData);					
+	socket.emit('initialData', initialData);		
 	
 };
 

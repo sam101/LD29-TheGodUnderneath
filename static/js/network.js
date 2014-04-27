@@ -5,12 +5,10 @@ function initGame() {
 	
 	socket.on('changeMode', function(isGod) {
 		if (isGod) {
-			$('#normalMode').hide();
-			$('#godMode').slideDown(ANIMATION_DELAY);
+			ui.changeMode('god');
 		}
 		else {
-			$('#godMode').hide();
-			$('#normalMode').slideDown(ANIMATION_DELAY);
+			ui.changeMode('normal');
 		}
 		game.player.isGod = isGod;
 	});	
@@ -25,20 +23,12 @@ function initGame() {
 	
 	socket.on('disconnect', function() {
 		game.started = false;
-		$("#info").hide();
-		$('#info').html('Waiting for server...');
-		$('#info').slideDown(ANIMATION_DELAY);
-		$('#normalMode').slideUp(ANIMATION_DELAY);
-		$('#godMode').slideUp(ANIMATION_DELAY);
+		ui.showInfo('Waiting for server...');
 	});
 	
 	socket.on('waitingForPlayers', function() {
 		game.started = false;
-		$("#info").hide();
-		$('#info').html('Waiting for players...');
-		$('#info').slideDown(ANIMATION_DELAY);
-		$('#normalMode').slideUp(ANIMATION_DELAY);
-		$('#godMode').slideUp(ANIMATION_DELAY);
+		ui.showInfo('Waiting for players...');
 	});
 	
 	socket.on('gameOver', function(points) {
@@ -47,9 +37,7 @@ function initGame() {
 	
 	// Called on initialisation, when the server sends the game data to the client
 	socket.on('initialData', function(data) {
-		$('#info').html('');
-		$('#godMode').hide();
-		$('#normalMode').slideDown(ANIMATION_DELAY);
+		ui.changeMode('normal');
 		game = new Game(data);
 	});	
 
