@@ -216,13 +216,13 @@ World.prototype.sendOtherPlayerData = function(socket) {
 World.prototype.sendAllPlayersData = function(socket) {
 	for (var key in this.players) {
 		if (socket.id != this.sockets[key].id) {
-			var player = this.players[socket.id];
+			var player = this.players[key];
 			var data = {
 				x: player.x,
 				y: player.y,
-				id: socket.id
+				id: key
 			};
-			this.sockets[key].emit('otherPlayerData', data);			
+			socket.emit('otherPlayerData', data);			
 		}
 	}
 };

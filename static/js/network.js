@@ -6,12 +6,14 @@ $(window).load(function() {
 	// Called on initialisation, when the server sends the game data to the client
 	socket.on('initialData', function(data) {
 		$('#info').html('');
+		$('#gameMode').html('');
 		init(data);
 	});
 	
 	socket.on('disconnect', function() {
 		game.started = false;
 		$('#info').html('Waiting for server...');
+		$('#gameMode').html('');
 	});
 	
 	socket.on('waitingForPlayers', function() {
