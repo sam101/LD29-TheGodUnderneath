@@ -26,14 +26,14 @@ Cursor.prototype.frame = function(keyboard) {
 	else if (keyboard.status[KEY_RIGHT]) {
 		this.move(this.x + 1, this.y);		
 	}	
-	else if (keyboard.status[KEY_X]) {
+	else if (keyboard.status[KEY_V]) {
 		this.addState++;
 		if (this.addState == 3) {
 			this.addState = 0;
 			socket.emit('addStrengthToTile', this.x, this.y);
 		}
 	}
-	else if (keyboard.status[KEY_V]) {
+	else if (keyboard.status[KEY_X]) {
 		this.removeState++;
 		if (this.removeState == 3) {
 			this.removeState = 0;
