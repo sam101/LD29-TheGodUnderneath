@@ -31,21 +31,22 @@ function init(data) {
 	window.requestAnimationFrame(draw);
 
 	game.frameCount = 0;
-	game.lifeFrameCount = 0;
 }
 function frame() {
 	game.frameCount++;
-	game.lifeFrameCount++;
-	
-	if (game.frameCount == 2) {
-		game.player.frame(game.keyboard);	
-		
-		game.frameCount = 0;
+	if (game.isGod) {
+		if ( (game.frameCount % 2) == 0) {
+			game.cursor.frame(game.keyboard);				
+		}
 	}
-	
-	if (game.lifeFrameCount == 10) {
-		game.lifebar.guessLife();
-		game.lifeFrameCount = 0;
+	else {		
+		if ( (game.frameCount % 2) == 0) {
+			game.player.frame(game.keyboard);	
+		}
+		
+		if ((game.frameCount % 10) == 0) {
+			game.lifebar.guessLife();
+		}
 	}
 }
 function draw() {

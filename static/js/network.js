@@ -17,6 +17,14 @@ socket.on('waitingForPlayers', function() {
 	$('#info').html('Waiting for players...');
 });
 
+socket.on('gameOver', function() {
+
+});
+
+socket.on('changeMode', function(isGod) {
+	game.isGod = isGod;
+});
+
 socket.on('updateLife', function(life) {
 	console.log('updateLife');
 	if (game.started) {
