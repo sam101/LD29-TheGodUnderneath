@@ -35,6 +35,7 @@ function changeGod() {
 }
 
 function handlePlayer(socket) {
+	console.log("Got a request from " + socket.id);
 	addPlayerToWorld(socket, function() {
 		socket.get('world', function(err, world) {
 			if (err) {
