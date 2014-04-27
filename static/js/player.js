@@ -35,6 +35,7 @@ Player.prototype.move = function(x, y) {
 		this.attack(x,y);
 	}
 	else {
+		sound.DIG.stop();
 		this.data.x = x;
 		this.data.y = y;
 		socket.emit('move', x, y);
