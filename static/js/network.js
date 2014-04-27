@@ -1,7 +1,7 @@
 var socket;
 function initGame() {
 	// Connect to the server
-	socket = io.connect('http://localhost/');
+	socket = io.connect();
 	
 	socket.on('changeMode', function(isGod) {
 		if (isGod) {
