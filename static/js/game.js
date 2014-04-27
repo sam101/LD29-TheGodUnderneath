@@ -48,7 +48,8 @@ function Game(data) {
 Game.prototype.changeWorld = function(data) {
 	this.world.data = data.tiles;
 	this.goal = new Goal(data.goal);
-	this.world.player = new Player(data.player);
+	this.otherPlayers = new OtherPlayers();
+	this.player = new Player(data.player);
 };
 
 Game.prototype.removePlayer = function(id) {

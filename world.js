@@ -75,6 +75,7 @@ World.prototype.movePlayer = function(socket, x, y) {
 	}
 	
 	if (player.distance(x, y) != 1) {
+		console.log(socket.id + " is too far from here : " + player.distance(x,y));
 		return;
 	}
 	
@@ -197,7 +198,7 @@ World.prototype.updatePlayerLife = function() {
 				this.sockets[key].emit('updateLife', this.players[key].life);
 			}
 			else {
-				this.sockets[key].emit('gameOver', this.players[key].score);				
+				this.sockets[key].emit('gameOver', this.players[key].points);				
 				this.delPlayer(this.sockets[key]);
 			}
 		}
@@ -220,8 +221,8 @@ World.prototype.winGame = function(socket) {
 		this.players[key].generatePosition(this);
 	}
 	
-	this.changeGod();
 	this.sendWorldData();
+	this.changeGod();
 };
 
 World.prototype.sendInitialData = function(socket) {
