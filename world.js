@@ -327,6 +327,9 @@ World.prototype.addRock = function(socket, x, y) {
 		console.log(socket.id + " is too close");
 		return;
 	}
+	if (this.goal.x == x && this.goal.y == y) {
+		return;
+	}
 	if (this.rocks.length >= common.MAX_ROCKS) {
 		this.rocks.shift();
 	}

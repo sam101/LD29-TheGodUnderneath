@@ -43,6 +43,7 @@ Cursor.prototype.frame = function(keyboard) {
 		}
 	}
 	else if (keyboard.status[KEY_C]) {
+		sound.ROCK.play();		
 		socket.emit('addRock', this.x, this.y);
 	}
 };
