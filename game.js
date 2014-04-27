@@ -1,18 +1,18 @@
 var World = require('./world');
 var common = require('./common');
 
-worlds = [new World()];
+worlds = [new World(0)];
 
 function findWorld(socket) {
 	// Let's find a world for the player
 	for (var i = 0; i < worlds.length; i++) {
 		if (! worlds[i].isFull()) {
-			console.log('Add player to world ' + i);
+			console.log('Add player' + socket.id + ' to world ' + i);
 			return worlds[i];
 		}
 	}
 	console.log('Add new world ' + worlds.length);
-	worlds.push(new World());	
+	worlds.push(new World(worlds.length));	
 	return worlds[worlds.length - 1];
 }
 
@@ -60,6 +60,7 @@ function handlePlayer(socket) {
 			if (err) {
 				return;
 			}			
+			console.log('Remove player' + socket.id + ' from world ' + world.id);
 			world.delPlayer(world);
 		});		
 	});

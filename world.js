@@ -5,7 +5,8 @@ var Tile = require('./tile');
 var common = require('./common');
 var random = require('./random');
 
-function World() {
+function World(id) {
+	this.id = id;
 	this.size = 0;
 	this.players = {};
 	this.sockets = {};
@@ -44,7 +45,7 @@ World.prototype.addPlayer = function(socket) {
 	
 	this.tiles[player.y][player.x].r = 0;
 	this.sendTileChanged(player.x, player.y);
-	this.sendOtherPlayerData(socket);
+	this.changeGod();
 };
 
 World.prototype.delPlayer = function(socket) {
@@ -68,6 +69,7 @@ World.prototype.movePlayer = function(socket, x, y) {
 	var player = this.players[socket.id];
 	
 	if (player.isGod) {
+		console.log(socket.id + " is god, he can't move");
 		return;
 	}
 	
@@ -90,6 +92,7 @@ World.prototype.attackTile = function(socket, x, y) {
 	var player = this.players[socket.id];
 	
 	if (player.isGod) {
+		console.log(socket.id + " is god, he can't attack");
 		return;
 	}
 	
@@ -109,6 +112,7 @@ World.prototype.addStrengthToTile = function(socket, x, y) {
 	var player = this.players[socket.id];
 	
 	if (! player.isGod) {
+		console.log(socket.id + " is not god");
 		return;
 	}
 	
@@ -121,6 +125,7 @@ World.prototype.removeStrengthToTile = function(socket, x, y) {
 	var player = this.players[socket.id];
 	
 	if (! player.isGod) {
+		console.log(socket.id + " is not god");
 		return;
 	}
 	
@@ -130,7 +135,32 @@ World.prototype.removeStrengthToTile = function(socket, x, y) {
 };
 
 World.prototype.changeGod = function() {
+	if (this.size < common.MIN_PLAYERS) {
+		return;
+	}
 	
+	var oldGod = this.god;
+	var newGod;
+	
+	do {
+		newGod = random.randFromObject(this.players);
+	} while (oldGod == newGod);
+	
+	this.god = newGod;
+	this.god.isGod = true;
+
+	this.sockets[newGod.id].emit('changeMode', true);
+	if (oldGod) {
+		oldGod.isGod = false;
+		this.sockets[oldGod.id].emit('changeMode', false);
+		console.log('World ' + this.id + ' : from ' + oldGod.id + ' to ' + newGod.id);
+	}
+	else {
+		console.log('World ' + this.id + ' : to ' + newGod.id);		
+	}	
+	
+	this.sendAllPlayersData(this.sockets[newGod.id]);
+
 };
 
 World.prototype.updatePlayerLife = function() {
@@ -159,7 +189,7 @@ World.prototype.sendInitialData = function(socket) {
 World.prototype.sendOtherPlayerData = function(socket) {
 	var player = this.players[socket.id];
 	for (var key in this.players) {
-		if (socket.id != this.sockets[key].id) {
+		if (socket.id != this.sockets[key].id && this.players[key].isGod) {
 			var data = {
 				x: player.x,
 				y: player.y,
@@ -168,6 +198,10 @@ World.prototype.sendOtherPlayerData = function(socket) {
 			this.sockets[key].emit('otherPlayerData', data);
 		}
 	}
+};
+
+World.prototype.sendAllPlayersData = function(socket) {
+	
 };
 
 World.prototype.sendTileChanged = function(x,y) {

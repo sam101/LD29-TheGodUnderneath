@@ -6,6 +6,8 @@ var serveStatic = require('serve-static');
 var game = require('./game');
 
 var app = express();
+app.set('view engine', 'jade');
+
 var server = http.createServer(app);
 var io = require('socket.io').listen(server);
 io.set('log level', 1);
@@ -15,9 +17,10 @@ app.get('/', function(req, res) {
 });
 
 app.use(serveStatic('static'));
-app.use(require('errorhandler'));
 
-app.set('view engine', 'jade');
+app.use('*', function(req, res) {
+	res.send('404 not found', 404);
+});
 
 game.use(io);
 
