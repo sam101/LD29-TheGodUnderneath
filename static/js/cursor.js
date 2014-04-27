@@ -27,5 +27,10 @@ Cursor.prototype.frame = function(keyboard) {
 };
 
 Cursor.prototype.draw = function(canvas) {
-	canvas.drawImage(res.CURSOR, this.x * TILE_SIZE, this.y * TILE_SIZE);		
+	if (game.otherPlayers.distance(this.x, this.y) < MIN_PLAYER_DISTANCE) {
+		canvas.drawImage(res.CURSOR_TOO_CLOSE, this.x * TILE_SIZE, this.y * TILE_SIZE);				
+	}
+	else {
+		canvas.drawImage(res.CURSOR, this.x * TILE_SIZE, this.y * TILE_SIZE);		
+	}
 };

@@ -43,11 +43,13 @@ function handlePlayer(socket) {
 			
 			if (world.size > common.MIN_PLAYERS) {
 				world.sendInitialData(socket);		
+				world.changeGod();
 			}
 			else if (world.size == common.MIN_PLAYERS) {
 				for (var key in world.sockets) {
 					world.sendInitialData(world.sockets[key]);
 				}
+				world.changeGod();
 			}
 			else {
 				socket.emit('waitingForPlayers');

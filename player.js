@@ -14,7 +14,7 @@ function Player(socket, world) {
 }
 
 Player.prototype.distance = function(x, y) {
-	return Math.abs(Math.floor(this.y - y + this.x - x));
+	return Math.floor(Math.abs(this.y - y) + Math.abs(this.x - x));
 };
 
 Player.prototype.updateLife = function() {

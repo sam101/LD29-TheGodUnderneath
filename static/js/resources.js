@@ -3,6 +3,9 @@ var res = {};
 res.CURSOR = new Image();
 res.CURSOR.src = "res/cursor.png";
 
+res.CURSOR_TOO_CLOSE = new Image();
+res.CURSOR_TOO_CLOSE.src = "res/cursorTooClose.png";
+
 res.GOAL = new Image();
 res.GOAL.src = "res/goal.png";
 

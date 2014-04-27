@@ -45,7 +45,6 @@ World.prototype.addPlayer = function(socket) {
 	
 	this.tiles[player.y][player.x].r = 0;
 	this.sendTileChanged(player.x, player.y);
-	this.changeGod();
 };
 
 World.prototype.delPlayer = function(socket) {
