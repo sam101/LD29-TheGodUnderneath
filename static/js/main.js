@@ -43,7 +43,7 @@ function frame() {
 		game.diff -= FRAME_TIME;
 		game.frameCount++;
 		if (game.player.isGod) {
-			if ( (game.frameCount % 2) == 0) {
+			if ( (game.frameCount % 4) == 0) {
 				game.cursor.frame(game.keyboard);				
 			}
 		}

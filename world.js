@@ -114,6 +114,11 @@ World.prototype.addStrengthToTile = function(socket, x, y) {
 		console.log(socket.id + " is not god");
 		return;
 	}
+
+	if (this.getMinDistance(x,y) < MIN_PLAYER_DISTANCE) {
+		console.log(socket.id + " is too close from a player");
+		return;
+	}	
 	
 	if (tile.r < 100) {
 		tile.addStrength(21);
@@ -125,6 +130,11 @@ World.prototype.removeStrengthToTile = function(socket, x, y) {
 	
 	if (! player.isGod) {
 		console.log(socket.id + " is not god");
+		return;
+	}
+	
+	if (this.getMinDistance(x,y) < MIN_PLAYER_DISTANCE) {
+		console.log(socket.id + " is too close from a player");
 		return;
 	}
 	
@@ -200,7 +210,17 @@ World.prototype.sendOtherPlayerData = function(socket) {
 };
 
 World.prototype.sendAllPlayersData = function(socket) {
-	
+	for (var key in this.players) {
+		if (socket.id != this.sockets[key].id) {
+			var player = this.players[socket.id];
+			var data = {
+				x: player.x,
+				y: player.y,
+				id: socket.id
+			};
+			this.sockets[key].emit('otherPlayerData', data);			
+		}
+	}
 };
 
 World.prototype.sendTileChanged = function(x,y) {
@@ -213,6 +233,17 @@ World.prototype.sendTileChanged = function(x,y) {
 	for (var key in this.sockets) {
 		this.sockets[key].emit('tileData', data);
 	}
+};
+
+World.prototype.getMinDistance = function(x, y) {
+	var minDistance = 255;
+	for (var key in this.players) {
+		var distance = this.players[key].distance(x,y);
+		if (distance < minDistance) {
+			minDistance = distance;
+		}
+	}
+	return minDistance;	
 };
 
 module.exports = World;
