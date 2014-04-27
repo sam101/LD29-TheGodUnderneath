@@ -217,6 +217,7 @@ World.prototype.sendInitialData = function(socket) {
 	var initialData = {
 		tiles: this.tiles,
 		goal: this.goal,
+		id: this.id,
 		player: this.players[socket.id]
 	};
 	socket.emit('initialData', initialData);					

@@ -8,7 +8,7 @@ function initGame() {
 		$('#info').html('');
 		$('#godMode').hide();
 		$('#normalMode').slideDown(ANIMATION_DELAY);
-		init(data);
+		game = new Game(data);
 	});
 	
 	socket.on('disconnect', function() {
@@ -25,8 +25,8 @@ function initGame() {
 		$('#godMode').slideUp(ANIMATION_DELAY);
 	});
 	
-	socket.on('gameOver', function() {
-	
+	socket.on('gameOver', function(points) {
+		gameOver(points);
 	});
 	
 	socket.on('changeWorld', function(data) {
