@@ -16,8 +16,13 @@ io.enable('browser client minification');
 io.enable('browser client etag');
 io.enable('browser client gzip');
 
+
+var env = argv.env || 'production';
+
 app.get('/', function(req, res) {
-	res.render('index');
+	res.render('index', {
+		env: env
+	});
 });
 
 app.use(serveStatic('static'));

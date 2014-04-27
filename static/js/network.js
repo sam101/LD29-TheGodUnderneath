@@ -5,11 +5,9 @@ function initGame() {
 	
 	socket.on('changeMode', function(isGod) {
 		if (isGod) {
-			sound.GOD.play();
 			ui.changeMode('god');
 		}
 		else {
-			sound.NORMAL.play();
 			ui.changeMode('normal');
 		}
 		game.player.isGod = isGod;

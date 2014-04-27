@@ -8,21 +8,23 @@ html
     script(src='lib/buzz.min.js')
     script(src='lib/jquery-2.1.0.min.js')
 
-    script(src='js/common.js')
-    script(src='js/cursor.js')
-    script(src='js/game.js')
-    script(src='js/gameOver.js') 
-    script(src='js/goal.js') 
-    script(src='js/introduction.js') 
-    script(src='js/lifebar.js') 
-    script(src='js/network.js') 
-    script(src='js/otherPlayers.js') 
-    script(src='js/player.js')
-    script(src='js/resources.js')
-    script(src='js/tile.js')
-    script(src='js/ui.js')
-    script(src='js/world.js')
-  
+    if env == 'development'
+      script(src='js/common.js')
+      script(src='js/cursor.js')
+      script(src='js/game.js')
+      script(src='js/gameOver.js') 
+      script(src='js/goal.js') 
+      script(src='js/introduction.js') 
+      script(src='js/lifebar.js') 
+      script(src='js/network.js') 
+      script(src='js/otherPlayers.js') 
+      script(src='js/player.js')
+      script(src='js/resources.js')
+      script(src='js/tile.js')
+      script(src='js/ui.js')
+      script(src='js/world.js')
+    else
+      script(src='thegodunderneath.min.js')      
     #introduction
       h1 Welcome.
       h2 will you survive long enough ?
