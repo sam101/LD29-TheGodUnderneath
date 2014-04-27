@@ -2,6 +2,7 @@
 
 var Goal = require('./goal');
 var Player = require('./player');
+var Rock = require('./rock');
 var Tile = require('./tile');
 
 var common = require('./common');
@@ -24,7 +25,7 @@ World.prototype.generate = function() {
 	for (var i = 0; i < this.height; i++) {
 		this.tiles[i] = [];
 		for (var j = 0; j < this.width; j++) {
-			this.tiles[i][j] = new Tile(0, random.randInt(common.MIN_RES, common.MAX_RES));
+			this.tiles[i][j] = new Tile(random.randInt(common.MIN_RES, common.MAX_RES));
 		}
 	}
 	this.goal = new Goal();
@@ -311,5 +312,28 @@ World.prototype.getMinDistance = function(player, x, y) {
 	}
 	return minDistance;	
 };
-
+/**
+ * Adds a rock to the world
+ */
+World.prototype.addRock = function(socket, x, y) {
+	if (! this.players[socket.id].isGod) {
+		console.log(socket.id + " tried to add a rock while not being a god");
+	}
+	if (x < 0 || x >= common.WIDTH || y < 0 || y >= common.HEIGHT) {
+		return;
+	}
+	if (this.rocks.length >= common.MAX_ROCKS) {
+		this.rocks.shift();
+	}
+	for (var i = 0; i < this.rocks.length; i++) {
+		if (this.rocks[i].x == x && this.rocks[i].y == y) {
+			return;
+		}
+	}
+	this.rocks.push(new Rock(x,y));
+	for (var key in this.players) {
+		this.sockets[key].emit('rocks', this.rocks);
+	}
+};
+	
 module.exports = World;

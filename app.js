@@ -10,7 +10,11 @@ app.set('view engine', 'jade');
 
 var server = http.createServer(app);
 var io = require('socket.io').listen(server);
+
 io.set('log level', 1);
+io.enable('browser client minification');
+io.enable('browser client etag');
+io.enable('browser client gzip');
 
 app.get('/', function(req, res) {
 	res.render('index');

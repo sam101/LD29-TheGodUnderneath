@@ -87,6 +87,15 @@ function handlePlayer(socket) {
 		});		
 	});
 	
+	socket.on('addRock', function(x, y) {
+		socket.get('world', function(err, world) {
+			if (err) {
+				return;
+			}			
+			world.addRock(socket, x, y);
+		});						
+	});
+	
 	socket.on('addStrengthToTile', function(x,y) {
 		socket.get('world', function(err, world) {
 			if (err) {

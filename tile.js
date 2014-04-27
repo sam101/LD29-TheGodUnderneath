@@ -1,5 +1,4 @@
-function Tile(type, resistance) {
-	this.t = type;
+function Tile(resistance) {
 	this.r = resistance;
 }
 

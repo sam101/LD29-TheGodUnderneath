@@ -14,3 +14,5 @@ exports.PLAYER_LIFE_INTERVAL = 3000;
 exports.CHANGE_GOD_INTERVAL = 20000;
 
 exports.MIN_PLAYER_DISTANCE = 3;
+
+exports.MAX_ROCKS = 3;
