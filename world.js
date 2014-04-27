@@ -48,14 +48,12 @@ World.prototype.addPlayer = function(socket) {
 	this.sendTileChanged(player.x, player.y);
 };
 
-World.prototype.delPlayer = function(socket) {
-	console.log('Remove player ' + socket.id + ' from world ' + this.id);
-	
+World.prototype.delPlayer = function(socket) {	
 	if (! this.players[socket.id]) {
 		return;
 	}
-	
 	this.size--;
+	console.log('Remove player ' + socket.id + ' from world ' + this.id + " (" + this.size + " players)");	
 	delete this.players[socket.id];
 	delete this.sockets[socket.id];
 	
