@@ -37,8 +37,12 @@ function changeGod() {
 	}	
 }
 
+function getIp(socket) {
+	return client.handshake.headers['x-forwarded-for'] || client.handshake.address.address;
+}
+
 function handlePlayer(socket) {
-	console.log("Got a request from " + socket.id + " (" + socket.handshake.address.address + ")");
+	console.log("Got a request from " + socket.id + " (" + getIp(socket) + ")");
 	addPlayerToWorld(socket, function() {
 		socket.get('world', function(err, world) {
 			if (err) return;			
