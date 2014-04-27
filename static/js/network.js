@@ -57,7 +57,13 @@ function initGame() {
 		if (game.started) {
 			game.world.updateTile(data.x, data.y, data.tile);
 		}
-	});	
+	});
+	
+	socket.on('updateRocks', function(rocks) {
+		if (game.started) {
+			game.world.updateRocks(rocks);
+		}
+	});
 	
 	socket.on('updateLife', function(life) {
 		if (game.started) {

@@ -12,6 +12,9 @@ res.GOAL.src = "res/goal.png";
 res.OTHER = new Image();
 res.OTHER.src = "res/other.png";
 
+res.ROCK = new Image();
+res.ROCK.src = "res/rock.png";
+
 res.PLAYER = new Image();
 res.PLAYER.src = "res/player.png";
 

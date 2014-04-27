@@ -303,7 +303,7 @@ World.prototype.sendWorldData = function() {
 World.prototype.getMinDistance = function(player, x, y) {
 	var minDistance = 255;
 	for (var key in this.players) {
-		if (key != player.id) {
+		if (!player || key != player.id) {
 			var distance = this.players[key].distance(x,y);
 			if (distance < minDistance) {
 				minDistance = distance;
@@ -316,10 +316,15 @@ World.prototype.getMinDistance = function(player, x, y) {
  * Adds a rock to the world
  */
 World.prototype.addRock = function(socket, x, y) {
+	console.log("Add rock " + socket.id + " (" + x + "," + y + ")");
 	if (! this.players[socket.id].isGod) {
 		console.log(socket.id + " tried to add a rock while not being a god");
 	}
 	if (x < 0 || x >= common.WIDTH || y < 0 || y >= common.HEIGHT) {
+		return;
+	}
+	if (this.getMinDistance(null, x,y) < common.MIN_PLAYER_DISTANCE) {
+		console.log(socket.id + " is too close");
 		return;
 	}
 	if (this.rocks.length >= common.MAX_ROCKS) {
@@ -332,7 +337,7 @@ World.prototype.addRock = function(socket, x, y) {
 	}
 	this.rocks.push(new Rock(x,y));
 	for (var key in this.players) {
-		this.sockets[key].emit('rocks', this.rocks);
+		this.sockets[key].emit('updateRocks', this.rocks);
 	}
 };
 	

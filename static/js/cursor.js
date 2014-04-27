@@ -42,6 +42,9 @@ Cursor.prototype.frame = function(keyboard) {
 			socket.emit('removeStrengthToTile', this.x, this.y);		
 		}
 	}
+	else if (keyboard.status[KEY_C]) {
+		socket.emit('addRock', this.x, this.y);
+	}
 };
 
 Cursor.prototype.draw = function(canvas) {
