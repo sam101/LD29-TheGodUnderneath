@@ -38,7 +38,7 @@ function changeGod() {
 }
 
 function handlePlayer(socket) {
-	console.log("Got a request from " + socket.id);
+	console.log("Got a request from " + socket.id + " (" + socket.handshake.address.address + ")");
 	addPlayerToWorld(socket, function() {
 		socket.get('world', function(err, world) {
 			if (err) return;			
