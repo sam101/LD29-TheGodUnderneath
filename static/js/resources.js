@@ -25,6 +25,18 @@ sound.DEL = new buzz.sound("res/del", {
 	formats: ["wav"]
 });
 
+sound.DIG = new buzz.sound("res/dig", {
+	formats: ["wav"]
+});
+
+sound.LOSE = new buzz.sound("res/lose", {
+	formats: ["wav"]
+});
+
+sound.ROCK = new buzz.sound("res/rock", {
+	formats: ["wav"]
+});
+
 sound.WIN = new buzz.sound("res/win", {
 	formats: ["wav"]
 });

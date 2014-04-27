@@ -31,6 +31,7 @@ Player.prototype.move = function(x, y) {
 	}
 	
 	if (game.world.data[y][x].r > 0) {
+		sound.DIG.play().loop();
 		this.attack(x,y);
 	}
 	else {
@@ -52,5 +53,8 @@ Player.prototype.frame = function(keyboard) {
 	}
 	else if (keyboard.status[KEY_RIGHT]) {
 		this.move(this.data.x + 1, this.data.y);		
+	}
+	else {
+		sound.DIG.play().stop();		
 	}
 };
