@@ -1,3 +1,5 @@
+// Main world handling
+
 var Goal = require('./goal');
 var Player = require('./player');
 var Tile = require('./tile');
@@ -10,6 +12,7 @@ function World(id) {
 	this.size = 0;
 	this.players = {};
 	this.sockets = {};
+	this.rocks = [];
 	// Generate tiles
 	this.generate();
 }
