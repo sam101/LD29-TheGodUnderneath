@@ -38,7 +38,7 @@ function changeGod() {
 }
 
 function getIp(socket) {
-	return client.handshake.headers['x-forwarded-for'] || client.handshake.address.address;
+	return socket.handshake.headers['x-forwarded-for'] || socket.handshake.address.address;
 }
 
 function handlePlayer(socket) {
