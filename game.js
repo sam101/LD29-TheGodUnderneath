@@ -7,7 +7,7 @@ function findWorld(socket) {
 	// Let's find a world for the player
 	for (var i = 0; i < worlds.length; i++) {
 		if (! worlds[i].isFull()) {
-			console.log('Add player' + socket.id + ' to world ' + i);
+			console.log('Add player ' + socket.id + ' to world ' + i);
 			return worlds[i];
 		}
 	}
@@ -64,8 +64,7 @@ function handlePlayer(socket) {
 			if (err) {
 				return;
 			}			
-			console.log('Remove player' + socket.id + ' from world ' + world.id);
-			world.delPlayer(world);
+			world.delPlayer(socket);
 		});		
 	});
 	

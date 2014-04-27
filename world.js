@@ -48,6 +48,8 @@ World.prototype.addPlayer = function(socket) {
 };
 
 World.prototype.delPlayer = function(socket) {
+	console.log('Remove player ' + socket.id + ' from world ' + this.id);
+
 	this.size--;
 	delete this.players[socket.id];
 	delete this.sockets[socket.id];
@@ -61,6 +63,8 @@ World.prototype.delPlayer = function(socket) {
 	for (var key in this.sockets) {
 		this.sockets[key].emit('removePlayer', socket.id);		
 	}
+	
+	this.changeGod();
 	
 };
 
@@ -166,11 +170,13 @@ World.prototype.changeGod = function() {
 	
 	this.god = newGod;
 	this.god.isGod = true;
-
+	
 	this.sockets[newGod.id].emit('changeMode', true);
 	if (oldGod) {
 		oldGod.isGod = false;
-		this.sockets[oldGod.id].emit('changeMode', false);
+		if (this.sockets[oldGod.id]) {
+			this.sockets[oldGod.id].emit('changeMode', false);
+		}
 		console.log('World ' + this.id + ' : from ' + oldGod.id + ' to ' + newGod.id);
 	}
 	else {
