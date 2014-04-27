@@ -193,11 +193,24 @@ World.prototype.updatePlayerLife = function() {
 		}
 	}
 };
-
+/**
+ * Called when a player has win the game. 
+ * Resets the world and send the new world data
+ * to the players, and change the current god
+ */
 World.prototype.winGame = function(socket) {
-	var player = this.players[socket.id];
+	// Generates a new world
+	this.generate();
 
+	var player = this.players[socket.id];
+	player.life = 100;	
 	
+	for (var key in this.players) {
+		this.players[key].generatePosition(this);
+	}
+	
+	this.changeGod();
+	this.sendWorldData();
 };
 
 World.prototype.sendInitialData = function(socket) {
@@ -247,6 +260,17 @@ World.prototype.sendTileChanged = function(x,y) {
 
 	for (var key in this.sockets) {
 		this.sockets[key].emit('tileData', data);
+	}
+};
+
+World.prototype.sendWorldData = function() {
+	for (var key in this.players) {
+		var data = {
+			tiles: this.tiles,
+			goal: this.goal,
+			player: this.players[key]
+		};
+		this.sockets[key].emit('changeWorld', data);							
 	}
 };
 

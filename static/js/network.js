@@ -19,10 +19,17 @@ function initGame() {
 	socket.on('waitingForPlayers', function() {
 		game.started = false;
 		$('#info').html('Waiting for players...');
+		$('#gameMode').html('');
 	});
 	
 	socket.on('gameOver', function() {
 	
+	});
+	
+	socket.on('changeWorld', function(data) {
+		game.world.data = data.tiles;
+		game.goal = new Goal(data.goal);
+		game.world.player = new Player(data.player);
 	});
 	
 	socket.on('changeMode', function(isGod) {
