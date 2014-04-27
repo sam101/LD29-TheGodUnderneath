@@ -40,15 +40,7 @@ sound.DIG = new buzz.sound("res/dig", {
 	formats: ["wav"]
 });
 
-sound.GOD = new buzz.sound("res/god", {
-	formats: ["wav"]
-});
-
 sound.LOSE = new buzz.sound("res/lose", {
-	formats: ["wav"]
-});
-
-sound.NORMAL = new buzz.sound("res/normal", {
 	formats: ["wav"]
 });
 
