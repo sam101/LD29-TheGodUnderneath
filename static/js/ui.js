@@ -4,6 +4,7 @@ function UI() {
 
 UI.prototype.changeMode = function(mode) {
 	$('#info').html('');
+	sound.DIG.stop();
 	if (mode == 'god') {
 		$('#normalMode').hide();
 		$('#godMode').slideDown(ANIMATION_DELAY);		
