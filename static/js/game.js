@@ -31,10 +31,10 @@ function Game(data) {
 			delete this.status[event.keyCode];
 		},
 	};
-	
-	window.addEventListener('keydown', function(event) { game.keyboard.onKeydown(event); }, false);
-	window.addEventListener('keyup', function(event) { game.keyboard.onKeyup(event); }, false);
-	window.addEventListener('keydown',function(event) { event.preventDefault(); },false);	
+
+	$('body').on('keydown', function(event) { game.keyboard.onKeydown(event); });
+	$('body').on('keyup', function(event) { game.keyboard.onKeyup(event); });
+	$('body').on('keydown', function(event) { event.preventDefault(); });
 	
 	window.requestAnimationFrame(function() {
 		game.draw();
@@ -44,6 +44,13 @@ function Game(data) {
 	this.diff = 0;
 	this.lastTime = Date.now();
 }
+
+Game.prototype.removePlayer = function(id) {
+	if (this.isGod) {
+		this.otherPlayers.removePlayer(id);
+	}
+	this.changeSize(this.size - 1);
+};
 
 Game.prototype.changeSize = function(size) {
 	this.size = size;	

@@ -27,7 +27,9 @@ function initGame() {
 	
 	socket.on('disconnect', function() {
 		game.started = false;
+		$("#info").hide();
 		$('#info').html('Waiting for server...');
+		$('#info').slideDown(ANIMATION_DELAY);
 		$('#normalMode').slideUp(ANIMATION_DELAY);
 		$('#godMode').slideUp(ANIMATION_DELAY);
 	});
@@ -59,8 +61,7 @@ function initGame() {
 	
 	socket.on('removePlayer', function(id) {
 		if (game.started) {
-			game.players = 
-			game.otherPlayers.removePlayer(id);
+			game.removePlayer(id);
 		}
 	});	
 	

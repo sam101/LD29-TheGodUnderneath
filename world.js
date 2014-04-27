@@ -44,6 +44,7 @@ World.prototype.addPlayer = function(socket) {
 	this.players[socket.id] = player;
 	
 	this.tiles[player.y][player.x].r = 0;
+	this.sendSize();
 	this.sendTileChanged(player.x, player.y);
 };
 
@@ -62,10 +63,7 @@ World.prototype.delPlayer = function(socket) {
 
 	for (var key in this.sockets) {
 		this.sockets[key].emit('removePlayer', socket.id);		
-	}
-	
-	this.changeGod();
-	
+	}		
 };
 
 World.prototype.movePlayer = function(socket, x, y) {
@@ -195,7 +193,13 @@ World.prototype.updatePlayerLife = function() {
 	for (var key in this.players) {
 		if (! this.players[key].isGod) {
 			this.players[key].updateLife();
-			this.sockets[key].emit('updateLife', this.players[key].life);
+			if (this.players[key].life > 0) {
+				this.sockets[key].emit('updateLife', this.players[key].life);
+			}
+			else {
+				this.sockets[key].emit('gameOver', this.players[key].score);				
+				this.delPlayer(this.sockets[key]);
+			}
 		}
 	}
 };
