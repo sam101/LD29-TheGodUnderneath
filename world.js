@@ -159,12 +159,14 @@ World.prototype.sendInitialData = function(socket) {
 World.prototype.sendOtherPlayerData = function(socket) {
 	var player = this.players[socket.id];
 	for (var key in this.players) {
-		var data = {
-			x: player.x,
-			y: player.y,
-			id: socket.id
-		};
-		this.sockets[key].emit('otherPlayerData', data);
+		if (socket.id != this.sockets[key].id) {
+			var data = {
+				x: player.x,
+				y: player.y,
+				id: socket.id
+			};
+			this.sockets[key].emit('otherPlayerData', data);
+		}
 	}
 };
 
