@@ -9,3 +9,6 @@ exports.MIN_PLAYERS = 2;
 exports.MIN_DISTANCE = 10;
 
 exports.LIFE_DAMAGE = 8;
+
+exports.PLAYER_LIFE_INTERVAL = 3000;
+exports.CHANGE_GOD_INTERVAL = 20000;

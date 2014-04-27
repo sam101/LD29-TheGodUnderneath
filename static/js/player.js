@@ -53,5 +53,4 @@ Player.prototype.frame = function(keyboard) {
 	else if (keyboard.status[KEY_RIGHT]) {
 		this.move(this.data.x + 1, this.data.y);		
 	}
-
 };

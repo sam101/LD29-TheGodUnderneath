@@ -1,5 +1,6 @@
 var World = require('./world');
 var common = require('./common');
+
 worlds = [new World()];
 
 function findWorld(socket) {
@@ -25,6 +26,12 @@ function updatePlayerLife() {
 	for (var i = 0; i < worlds.length; i++) {
 		worlds[i].updatePlayerLife();
 	}
+}
+
+function changeGod() {
+	for (var i = 0; i < worlds.length; i++) {
+		worlds[i].changeGod();
+	}	
 }
 
 function handlePlayer(socket) {
@@ -76,7 +83,8 @@ function handlePlayer(socket) {
 	});
 };
 
-setInterval(updatePlayerLife, 3000);
+setInterval(changeGod, common.CHANGE_GOD_INTERVAL);
+setInterval(updatePlayerLife, common.PLAYER_LIFE_INTERVAL);
 
 exports.use = function(io) {
 	io.sockets.on('connection', handlePlayer);

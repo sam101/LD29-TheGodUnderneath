@@ -44,27 +44,23 @@ World.prototype.addPlayer = function(socket) {
 	
 	this.tiles[player.y][player.x].r = 0;
 	this.sendTileChanged(player.x, player.y);
+	this.sendOtherPlayerData(socket);
 };
 
-World.prototype.sendTileChanged = function(x,y) {
-	var data = {
-		x: x,
-		y: y,
-		tile: this.tiles[y][x]
-	};
+World.prototype.delPlayer = function(socket) {
+	this.size--;
+	delete this.players[socket.id];
+	delete this.sockets[socket.id];
+	
+	if (this.size < common.MIN_PLAYERS) {
+		for (var key in this.sockets) {
+			this.sockets[key].emit('waitingForPlayers');
+		}
+	}
 
 	for (var key in this.sockets) {
-		this.sockets[key].emit('tileData', data);
+		this.sockets[key].emit('removePlayer', socket.id);		
 	}
-};
-
-World.prototype.sendInitialData = function(socket) {
-	var initialData = {
-		tiles: this.tiles,
-		goal: this.goal,
-		player: this.players[socket.id]
-	};
-	socket.emit('initialData', initialData);					
 	
 };
 
@@ -81,6 +77,9 @@ World.prototype.movePlayer = function(socket, x, y) {
 	
 	player.x = x;
 	player.y = y;
+	
+	this.sendOtherPlayerData(socket);
+
 };
 
 World.prototype.attackTile = function(socket, x, y) {
@@ -104,18 +103,6 @@ World.prototype.attackTile = function(socket, x, y) {
 		tile.removeStrength(21);
 	}
 	this.sendTileChanged(x, y);
-};
-
-World.prototype.delPlayer = function(socket) {
-	this.size--;
-	delete this.players[socket.id];
-	delete this.sockets[socket.id];
-	
-	if (this.size < common.MIN_PLAYERS) {
-		for (var key in this.sockets) {
-			this.sockets[key].emit('waitingForPlayers');
-		}
-	}
 };
 
 World.prototype.addStrengthToTile = function(socket, x, y) {
@@ -142,6 +129,10 @@ World.prototype.removeStrengthToTile = function(socket, x, y) {
 	}
 };
 
+World.prototype.changeGod = function() {
+	
+};
+
 World.prototype.updatePlayerLife = function() {
 	if (this.size < common.MIN_PLAYERS) {
 		return;
@@ -152,6 +143,40 @@ World.prototype.updatePlayerLife = function() {
 			this.players[key].updateLife();
 			this.sockets[key].emit('updateLife', this.players[key].life);
 		}
+	}
+};
+
+World.prototype.sendInitialData = function(socket) {
+	var initialData = {
+		tiles: this.tiles,
+		goal: this.goal,
+		player: this.players[socket.id]
+	};
+	socket.emit('initialData', initialData);					
+	
+};
+
+World.prototype.sendOtherPlayerData = function(socket) {
+	var player = this.players[socket.id];
+	for (var key in this.players) {
+		var data = {
+			x: player.x,
+			y: player.y,
+			id: socket.id
+		};
+		this.sockets[key].emit('otherPlayerData', data);
+	}
+};
+
+World.prototype.sendTileChanged = function(x,y) {
+	var data = {
+		x: x,
+		y: y,
+		tile: this.tiles[y][x]
+	};
+
+	for (var key in this.sockets) {
+		this.sockets[key].emit('tileData', data);
 	}
 };
 

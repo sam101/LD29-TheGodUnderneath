@@ -26,10 +26,20 @@ socket.on('changeMode', function(isGod) {
 });
 
 socket.on('updateLife', function(life) {
-	console.log('updateLife');
 	if (game.started) {
-		console.log('t' + life);
 		game.lifebar.updateLife(life);
+	}
+});
+
+socket.on('otherPlayerData', function(data) {
+	if (game.started) {
+		game.otherPlayers.updatePosition(data);
+	}
+});
+
+socket.on('removePlayer', function(id) {
+	if (game.started) {
+		game.otherPlayers.removePlayer(data);
 	}
 });
 

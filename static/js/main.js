@@ -9,6 +9,7 @@ function init(data) {
 	game.goal = new Goal(data.goal);
 	game.player = new Player(data.player);
 	game.lifebar = new LifeBar(data.player);
+	game.otherPlayers = new OtherPlayers();
 	game.world = new World(data.tiles);
 	
 	game.started = true;
@@ -60,13 +61,16 @@ function draw() {
 	game.canvas.clearRect(0, 0, game.canvas.width, game.canvas.height);
 
 	game.world.draw(game.canvas);
-
-	game.cursor.draw(game.canvas);
-
-	game.lifebar.draw(game.canvas);
-	
 	game.goal.draw(game.canvas);
-	game.player.draw(game.canvas);
 	
+	if (game.player.isGod) {
+		game.cursor.draw(game.canvas);
+		game.otherPlayers.draw(game.canvas);		
+	}
+	else {
+		game.lifebar.draw(game.canvas);	
+		game.player.draw(game.canvas);
+	}
+
 	window.requestAnimationFrame(draw);
 } 
