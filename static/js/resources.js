@@ -14,3 +14,19 @@ res.OTHER.src = "res/other.png";
 
 res.PLAYER = new Image();
 res.PLAYER.src = "res/player.png";
+
+var sound = {};
+
+sound.ADD = new buzz.sound("res/add", {
+	formats: ["wav"]
+});
+
+sound.DEL = new buzz.sound("res/del", {
+	formats: ["wav"]
+});
+
+sound.WIN = new buzz.sound("res/win", {
+	formats: ["wav"]
+});
+
+

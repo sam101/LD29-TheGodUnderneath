@@ -46,6 +46,8 @@ function Game(data) {
 }
 
 Game.prototype.changeWorld = function(data) {
+	sound.WIN.play();
+	
 	this.world.data = data.tiles;
 	this.goal = new Goal(data.goal);
 	this.otherPlayers = new OtherPlayers();

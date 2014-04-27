@@ -30,6 +30,7 @@ Cursor.prototype.frame = function(keyboard) {
 		this.addState++;
 		if (this.addState == 3) {
 			this.addState = 0;
+			sound.ADD.play();
 			socket.emit('addStrengthToTile', this.x, this.y);
 		}
 	}
@@ -37,6 +38,7 @@ Cursor.prototype.frame = function(keyboard) {
 		this.removeState++;
 		if (this.removeState == 3) {
 			this.removeState = 0;
+			sound.DEL.play();
 			socket.emit('removeStrengthToTile', this.x, this.y);		
 		}
 	}
