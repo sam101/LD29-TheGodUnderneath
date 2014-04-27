@@ -1,6 +1,8 @@
 function Cursor() {
 	this.x = WIDTH / 2;
 	this.y = HEIGHT / 2;
+	this.addState = 0;
+	this.removeState = 0;
 }
 
 Cursor.prototype.move = function(x, y) {
@@ -25,10 +27,18 @@ Cursor.prototype.frame = function(keyboard) {
 		this.move(this.x + 1, this.y);		
 	}	
 	else if (keyboard.status[KEY_X]) {
-		socket.emit('addStrengthToTile', this.x, this.y);
+		this.addState++;
+		if (this.addState == 3) {
+			this.addState = 0;
+			socket.emit('addStrengthToTile', this.x, this.y);
+		}
 	}
 	else if (keyboard.status[KEY_V]) {
-		socket.emit('removeStrengthToTile', this.x, this.y);		
+		this.removeState++;
+		if (this.removeState == 3) {
+			this.removeState = 0;
+			socket.emit('removeStrengthToTile', this.x, this.y);		
+		}
 	}
 };
 

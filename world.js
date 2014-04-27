@@ -79,7 +79,12 @@ World.prototype.movePlayer = function(socket, x, y) {
 	player.x = x;
 	player.y = y;
 	
-	this.sendOtherPlayerData(socket);
+	if (this.goal.isAtGoal(player)) {
+		this.winGame(socket);
+	}
+	else {
+		this.sendOtherPlayerData(socket);
+	}
 
 };
 
@@ -122,7 +127,7 @@ World.prototype.addStrengthToTile = function(socket, x, y) {
 	
 	var tile = this.tiles[y][x];
 	if (tile.r < 100) {
-		tile.addStrength(21);
+		tile.addStrength(33);
 		this.sendTileChanged(x, y);
 	}
 };
@@ -142,7 +147,7 @@ World.prototype.removeStrengthToTile = function(socket, x, y) {
 	
 	var tile = this.tiles[y][x];
 	if (tile.r > 0) {
-		tile.removeStrength(21);
+		tile.removeStrength(33);
 		this.sendTileChanged(x, y);
 	}
 };
@@ -187,6 +192,12 @@ World.prototype.updatePlayerLife = function() {
 			this.sockets[key].emit('updateLife', this.players[key].life);
 		}
 	}
+};
+
+World.prototype.winGame = function(socket) {
+	var player = this.players[socket.id];
+
+	
 };
 
 World.prototype.sendInitialData = function(socket) {
