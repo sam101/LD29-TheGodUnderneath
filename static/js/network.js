@@ -1,5 +1,5 @@
 var socket;
-$(window).load(function() {
+function initGame() {
 	// Connect to the server
 	socket = io.connect('http://localhost/');
 	
@@ -58,4 +58,4 @@ $(window).load(function() {
 			game.world.updateTile(data.x, data.y, data.tile);
 		}
 	});
-});
+}

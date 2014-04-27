@@ -10,6 +10,7 @@ html
     script(src='js/common.js')
     script(src='js/cursor.js')
     script(src='js/goal.js') 
+    script(src='js/introduction.js') 
     script(src='js/lifebar.js') 
     script(src='js/network.js') 
     script(src='js/otherPlayers.js') 
@@ -18,8 +19,15 @@ html
     script(src='js/tile.js')
     script(src='js/world.js')
   
-    h1#info
+    #introduction
+      h1 Welcome to the god underneath
+      h2 will you survive long enough ?
+      p Press enter.
   
-    canvas#game(width='512px', height='392px')
-        
-    h1#gameMode
+    #gamePlay
+
+      h1#info
+    
+      canvas#game(width='512px', height='392px')
+          
+      h1#gameMode

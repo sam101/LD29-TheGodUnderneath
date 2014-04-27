@@ -12,7 +12,13 @@ LifeBar.prototype.guessLife = function() {
 };
 
 LifeBar.prototype.draw = function(canvas) {
-	canvas.fillStyle = "rgba(121,10,10,0.9)";
-	canvas.fillRect(0,384, this.player.life * 5.12, 8);
+	if (game.player.isGod) {
+		canvas.fillStyle = "rgba(10,10,121,0.9)";
+		canvas.fillRect(0,384, 512, 8);		
+	}
+	else {
+		canvas.fillStyle = "rgba(121,10,10,0.9)";
+		canvas.fillRect(0,384, this.player.life * 5.12, 8);
+	}
 };
 

@@ -69,6 +69,7 @@ function draw() {
 	game.canvas.clearRect(0, 0, game.canvas.width, game.canvas.height);
 
 	game.world.draw(game.canvas);
+	game.lifebar.draw(game.canvas);	
 	game.goal.draw(game.canvas);
 	
 	if (game.player.isGod) {
@@ -76,7 +77,6 @@ function draw() {
 		game.otherPlayers.draw(game.canvas);		
 	}
 	else {
-		game.lifebar.draw(game.canvas);	
 		game.player.draw(game.canvas);
 	}
 
