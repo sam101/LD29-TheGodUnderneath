@@ -43,6 +43,7 @@ function Game(data) {
 	this.frameCount = 0;
 	this.diff = 0;
 	this.lastTime = Date.now();
+
 }
 
 Game.prototype.changeWorld = function(data) {

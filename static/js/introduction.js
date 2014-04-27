@@ -2,7 +2,10 @@
 $(document).ready(function() {
 	function introductionListener(event) {
 		if (event.keyCode == KEY_ENTER) {
+			sound.BEGIN.play();
+			
 			$('body').off('keydown', introductionListener);
+			
 			$('#introduction').slideUp(INTRODUCTION_DELAY);
 			setTimeout(function() {
 				$('#gamePlay').slideDown(INTRODUCTION_DELAY);
