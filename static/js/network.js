@@ -6,19 +6,22 @@ function initGame() {
 	// Called on initialisation, when the server sends the game data to the client
 	socket.on('initialData', function(data) {
 		$('#info').html('');
-		$('#godMode').slideUp(ANIMATION_DELAY);
+		$('#godMode').hide();
+		$('#normalMode').slideDown(ANIMATION_DELAY);
 		init(data);
 	});
 	
 	socket.on('disconnect', function() {
 		game.started = false;
 		$('#info').html('Waiting for server...');
+		$('#normalMode').slideUp(ANIMATION_DELAY);
 		$('#godMode').slideUp(ANIMATION_DELAY);
 	});
 	
 	socket.on('waitingForPlayers', function() {
 		game.started = false;
 		$('#info').html('Waiting for players...');
+		$('#normalMode').slideUp(ANIMATION_DELAY);
 		$('#godMode').slideUp(ANIMATION_DELAY);
 	});
 	
@@ -34,10 +37,12 @@ function initGame() {
 	
 	socket.on('changeMode', function(isGod) {
 		if (isGod) {
+			$('#normalMode').hide();
 			$('#godMode').slideDown(ANIMATION_DELAY);
 		}
 		else {
-			$('#godMode').slideUp(ANIMATION_DELAY);
+			$('#godMode').hide();
+			$('#normalMode').slideDown(ANIMATION_DELAY);
 		}
 		game.player.isGod = isGod;
 	});

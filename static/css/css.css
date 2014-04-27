@@ -6,8 +6,14 @@
 body {
   margin: 0;
   padding: 0;
+  color: white;
   background-color: #000000;
   text-align:center;
+}
+
+
+#introduction {
+  font-family: "andvari";
 }
 
 #game {
@@ -21,11 +27,11 @@ body {
 #gamePlay {
   display:none;
 }
-h1, h2, h3, p {
-  font-family: "andvari";
-  color: white;
+
+#gameOver {
+  display:none;
 }
 
-#introduction {
+h1, h2, h3, p {
   font-family: "andvari";
 }

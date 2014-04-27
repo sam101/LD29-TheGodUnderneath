@@ -23,13 +23,22 @@ html
       h1 Welcome to the god underneath
       h2 will you survive long enough ?
       p Press enter.
-  
-    #gamePlay
 
+    #gameOver
+      h1 You loose.
+      h2 You got 
+         span.points 42
+         span.after  Points
+      p Press enter to try again.
+
+    #gamePlay
       h1#info
     
       canvas#game(width='512px', height='392px')
-      
+
+      #normalMode
+        p#playerCount 42 players            
+
       #godMode    
         h1 Deity mode activated
         p X : weaken title - V : strengthen title
