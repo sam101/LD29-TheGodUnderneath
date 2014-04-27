@@ -4,7 +4,7 @@ LD29 : TheGodUnderneath
 About
 ------
 
-"The God Underneath" is a multiplayer survival game made in 48H for the Ludum Dare #29 challenge, with the theme "Underneath the Surface".
+"The God Underneath" is a minimalistic multiplayer survival game made in 48H for the Ludum Dare #29 challenge, with the theme "Underneath the Surface".
 
 You must survive, digging your way to the shiny goal. But maybe the rules can change...
 
