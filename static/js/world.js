@@ -20,6 +20,15 @@ World.prototype.updateTile = function(x, y, tile) {
 	this.data[y][x] = tile;
 };
 
+World.prototype.hasRock = function(x, y) {
+	for (var i = 0; i < this.rocks.length; i++) {
+		if (this.rocks[i].x == x && this.rocks[i].y == y) {
+			return true;
+		}
+	}
+	return false;
+};
+
 World.prototype.updateRocks = function(rocks) {
 	this.rocks = rocks;
 };

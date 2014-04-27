@@ -30,6 +30,10 @@ Player.prototype.move = function(x, y) {
 		return;
 	}
 	
+	if (game.world.hasRock(x,y)) {
+		return;
+	}
+	
 	if (game.world.data[y][x].r > 0) {
 		sound.DIG.play().loop();
 		this.attack(x,y);

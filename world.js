@@ -80,6 +80,11 @@ World.prototype.movePlayer = function(socket, x, y) {
 		return;
 	}
 	
+	if (this.hasRock(x, y)) {
+		console.log(socket.id + " can't move to a tile where there is a rock");
+		return;
+	}	
+	
 	if (player.distance(x, y) != 1) {
 		console.log(socket.id + " is too far from here : " + player.distance(x,y));
 		return;
@@ -109,6 +114,11 @@ World.prototype.attackTile = function(socket, x, y) {
 		return;
 	}
 	
+	if (this.hasRock(x, y)) {
+		console.log(socket.id + " can't attack a tile where there is a rock");
+		return;
+	}
+	
 	if (player.distance(x, y) != 1) {
 		console.log("Cheating tentative by " + socket.id + "? :" + player.distance(x, y));
 		return;
@@ -118,6 +128,7 @@ World.prototype.attackTile = function(socket, x, y) {
 	if (tile.r > 0) {
 		tile.removeStrength(21);
 	}
+	
 	this.sendTileChanged(x, y);
 };
 
@@ -128,7 +139,7 @@ World.prototype.addStrengthToTile = function(socket, x, y) {
 		console.log(socket.id + " is not god");
 		return;
 	}
-
+	
 	if (this.getMinDistance(player, x,y) < common.MIN_PLAYER_DISTANCE) {
 		console.log(socket.id + " is too close from a player");
 		return;
@@ -323,7 +334,7 @@ World.prototype.addRock = function(socket, x, y) {
 	if (x < 0 || x >= common.WIDTH || y < 0 || y >= common.HEIGHT) {
 		return;
 	}
-	if (this.getMinDistance(null, x,y) < common.MIN_PLAYER_DISTANCE) {
+	if (this.getMinDistance(this.players[socket.id], x,y) < common.MIN_PLAYER_DISTANCE) {
 		console.log(socket.id + " is too close");
 		return;
 	}
@@ -343,5 +354,14 @@ World.prototype.addRock = function(socket, x, y) {
 		this.sockets[key].emit('updateRocks', this.rocks);
 	}
 };
-	
+
+World.prototype.hasRock = function(x, y) {
+	for (var i = 0; i < this.rocks.length; i++) {
+		if (this.rocks[i].x == x && this.rocks[i].y == y) {
+			return true;
+		}
+	}
+	return false;
+};
+
 module.exports = World;
