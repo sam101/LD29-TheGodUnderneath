@@ -28,6 +28,10 @@ body {
   display:none;
 }
 
+#normalMode {
+  display:none;
+}
+
 #gameOver {
   display:none;
 }
