@@ -17,6 +17,14 @@ socket.on('waitingForPlayers', function() {
 	$('#info').html('Waiting for players...');
 });
 
+socket.on('updateLife', function(life) {
+	console.log('updateLife');
+	if (game.started) {
+		console.log('t' + life);
+		game.lifebar.updateLife(life);
+	}
+});
+
 socket.on('tileData', function(data) {
 	if (game.started) {
 		game.world.updateTile(data.x, data.y, data.tile);

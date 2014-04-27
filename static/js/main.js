@@ -3,13 +3,13 @@ function init(data) {
 	game.canvasElement = document.getElementById("game");
 	game.canvas = game.canvasElement.getContext("2d");
 	game.canvas.width = 16 * TILE_SIZE;
-	game.canvas.height = 12 * TILE_SIZE;	
+	game.canvas.height = 12 * TILE_SIZE + 8;	
 	
 	game.cursor = new Cursor();
 	game.goal = new Goal(data.goal);
 	game.player = new Player(data.player);
+	game.lifebar = new LifeBar(data.player);
 	game.world = new World(data.tiles);
-	
 	
 	game.started = true;
 	
@@ -31,13 +31,21 @@ function init(data) {
 	window.requestAnimationFrame(draw);
 
 	game.frameCount = 0;
+	game.lifeFrameCount = 0;
 }
 function frame() {
 	game.frameCount++;
+	game.lifeFrameCount++;
+	
 	if (game.frameCount == 2) {
 		game.player.frame(game.keyboard);	
 		
 		game.frameCount = 0;
+	}
+	
+	if (game.lifeFrameCount == 10) {
+		game.lifebar.guessLife();
+		game.lifeFrameCount = 0;
 	}
 }
 function draw() {
@@ -53,8 +61,11 @@ function draw() {
 	game.world.draw(game.canvas);
 
 	game.cursor.draw(game.canvas);
-	game.player.draw(game.canvas);
+
+	game.lifebar.draw(game.canvas);
+	
 	game.goal.draw(game.canvas);
+	game.player.draw(game.canvas);
 	
 	window.requestAnimationFrame(draw);
 } 

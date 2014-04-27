@@ -142,5 +142,17 @@ World.prototype.removeStrengthToTile = function(socket, x, y) {
 	}
 };
 
+World.prototype.updatePlayerLife = function() {
+	if (this.size < common.MIN_PLAYERS) {
+		return;
+	}
+		
+	for (var key in this.players) {
+		if (! this.players[key].isGod) {
+			this.players[key].updateLife();
+			this.sockets[key].emit('updateLife', this.players[key].life);
+		}
+	}
+};
 
 module.exports = World;

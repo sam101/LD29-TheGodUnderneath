@@ -21,7 +21,13 @@ function addPlayerToWorld(socket, callback) {
 	socket.set('world', world, callback);
 }
 
-exports.handlePlayer = function(socket) {
+function updatePlayerLife() {
+	for (var i = 0; i < worlds.length; i++) {
+		worlds[i].updatePlayerLife();
+	}
+}
+
+function handlePlayer(socket) {
 	addPlayerToWorld(socket, function() {
 		socket.get('world', function(err, world) {
 			if (err) {
@@ -70,6 +76,8 @@ exports.handlePlayer = function(socket) {
 	});
 };
 
+setInterval(updatePlayerLife, 3000);
+
 exports.use = function(io) {
-	io.sockets.on('connection', exports.handlePlayer);
+	io.sockets.on('connection', handlePlayer);
 };

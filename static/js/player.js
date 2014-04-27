@@ -1,5 +1,6 @@
 function Player(data) {
 	this.data = data;
+	this.isGod = false;
 	this.attackState = {n: 0};
 }
 
