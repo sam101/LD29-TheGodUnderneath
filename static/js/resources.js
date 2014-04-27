@@ -24,6 +24,10 @@ sound.ADD = new buzz.sound("res/add", {
 	formats: ["wav"]
 });
 
+sound.BUMP = new buzz.sound("res/bump", {
+	formats: ["wav"]
+});
+
 sound.DEL = new buzz.sound("res/del", {
 	formats: ["wav"]
 });

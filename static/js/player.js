@@ -31,6 +31,7 @@ Player.prototype.move = function(x, y) {
 	}
 	
 	if (game.world.hasRock(x,y)) {
+		sound.BUMP.play();
 		return;
 	}
 	
