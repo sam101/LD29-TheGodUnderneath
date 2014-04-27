@@ -3,8 +3,11 @@ var common = require('./common');
 
 worlds = [new World(0)];
 
+/**
+ * Finds a world for a given player.
+ * The worlds are considered full when there is 5 players in there.
+ */
 function findWorld(socket) {
-	// Let's find a world for the player
 	for (var i = 0; i < worlds.length; i++) {
 		if (! worlds[i].isFull()) {
 			return worlds[i];
@@ -38,10 +41,7 @@ function handlePlayer(socket) {
 	console.log("Got a request from " + socket.id);
 	addPlayerToWorld(socket, function() {
 		socket.get('world', function(err, world) {
-			if (err) {
-				return;
-			}
-			
+			if (err) return;			
 			if (world.size > common.MIN_PLAYERS) {
 				world.sendInitialData(socket);		
 				world.changeGod();
@@ -53,6 +53,7 @@ function handlePlayer(socket) {
 				}
 				world.changeGod();
 				world.sendSize();
+				socket.emit('updateRocks', world.rocks);
 			}
 			else {
 				socket.emit('waitingForPlayers');
@@ -62,54 +63,42 @@ function handlePlayer(socket) {
 	
 	socket.on('disconnect', function() {
 		socket.get('world', function(err, world) {
-			if (err) {
-				return;
-			}			
+			if (err) return;
 			world.delPlayer(socket);
 		});		
 	});
 	
 	socket.on('attack', function(x, y) {
 		socket.get('world', function(err, world) {
-			if (err) {
-				return;
-			}			
+			if (err) return;
 			world.attackTile(socket, x, y);
 		});
 	});
 	
 	socket.on('move', function(x, y) {
 		socket.get('world', function(err, world) {
-			if (err) {
-				return;
-			}			
+			if (err) return;
 			world.movePlayer(socket, x, y);
 		});		
 	});
 	
 	socket.on('addRock', function(x, y) {
 		socket.get('world', function(err, world) {
-			if (err) {
-				return;
-			}			
+			if (err) return;
 			world.addRock(socket, x, y);
 		});						
 	});
 	
 	socket.on('addStrengthToTile', function(x,y) {
 		socket.get('world', function(err, world) {
-			if (err) {
-				return;
-			}			
+			if (err) return;
 			world.addStrengthToTile(socket, x, y);
 		});				
 	});
 	
 	socket.on('removeStrengthToTile', function(x,y) {
 		socket.get('world', function(err, world) {
-			if (err) {
-				return;
-			}			
+			if (err) return;
 			world.removeStrengthToTile(socket, x, y);
 		});						
 	});

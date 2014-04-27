@@ -1,7 +1,7 @@
 {
   "name": "TheGodUnderneath",
-  "version": "0.0.1",
-  "description": "TheGodUnderneath ================",
+  "version": "1.0.0",
+  "description": "LD29 Entry - Multiplayer minimalistic survival game written in javascript",
   "main": "app.js",
   "scripts": {
     "start": "node app.js"
@@ -11,7 +11,7 @@
     "url": "git://github.com/sam101/TheGodUnderneath.git"
   },
   "author": "Samuel Lepetit",
-  "license": "ISC",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/sam101/TheGodUnderneath/issues"
   },

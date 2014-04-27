@@ -16,7 +16,9 @@ function initGame() {
 	});	
 	
 	socket.on('changeSize', function(size) {
-		game.changeSize(size);
+		if (game.started) {
+			game.changeSize(size);
+		}
 	});
 	
 	socket.on('changeWorld', function(data) {

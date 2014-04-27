@@ -1,3 +1,5 @@
+// Player goal
+
 function Goal(data) {
 	this.data = data;
 }

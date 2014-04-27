@@ -17,7 +17,9 @@ function World(id) {
 	// Generate tiles
 	this.generate();
 }
-
+/**
+ * Generates the world tiles
+ */
 World.prototype.generate = function() {
 	this.width = common.WIDTH;
 	this.height = common.HEIGHT;
@@ -171,7 +173,10 @@ World.prototype.removeStrengthToTile = function(socket, x, y) {
 		this.sendTileChanged(x, y);
 	}
 };
-
+/**
+ * Change the current god and notify the old. A new god is supposed to be elected
+ * every 20 seconds, or when a player wins the game
+ */
 World.prototype.changeGod = function() {
 	if (this.size < common.MIN_PLAYERS) {
 		return;
@@ -202,7 +207,10 @@ World.prototype.changeGod = function() {
 	this.sendAllPlayersData(this.sockets[newGod.id]);
 
 };
-
+/**
+ * Updates all players's life, removing some
+ * life points from them
+ */
 World.prototype.updatePlayerLife = function() {
 	if (this.size < common.MIN_PLAYERS) {
 		return;
