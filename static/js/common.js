@@ -11,7 +11,7 @@ const KEY_V = 86;
 const KEY_ENTER = 13;
 
 const FRAME_TIME = 20;
-const GUESS_LIFE = 0.4;
+const GUESS_LIFE = 0.3;
 
 const MIN_PLAYER_DISTANCE = 3;
 
