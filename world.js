@@ -214,6 +214,7 @@ World.prototype.winGame = function(socket) {
 
 	var player = this.players[socket.id];
 	player.life = 100;	
+	player.points *= 2;
 	
 	for (var key in this.players) {
 		this.players[key].generatePosition(this);

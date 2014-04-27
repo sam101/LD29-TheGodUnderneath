@@ -45,6 +45,12 @@ function Game(data) {
 	this.lastTime = Date.now();
 }
 
+Game.prototype.changeWorld = function(data) {
+	this.world.data = data.tiles;
+	this.goal = new Goal(data.goal);
+	this.world.player = new Player(data.player);
+};
+
 Game.prototype.removePlayer = function(id) {
 	if (this.isGod) {
 		this.otherPlayers.removePlayer(id);

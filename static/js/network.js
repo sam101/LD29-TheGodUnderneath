@@ -20,9 +20,7 @@ function initGame() {
 	});
 	
 	socket.on('changeWorld', function(data) {
-		game.world.data = data.tiles;
-		game.goal = new Goal(data.goal);
-		game.world.player = new Player(data.player);
+		game.changeWorld(data);
 	});	
 	
 	socket.on('disconnect', function() {
@@ -36,7 +34,9 @@ function initGame() {
 	
 	socket.on('waitingForPlayers', function() {
 		game.started = false;
+		$("#info").hide();
 		$('#info').html('Waiting for players...');
+		$('#info').slideDown(ANIMATION_DELAY);
 		$('#normalMode').slideUp(ANIMATION_DELAY);
 		$('#godMode').slideUp(ANIMATION_DELAY);
 	});

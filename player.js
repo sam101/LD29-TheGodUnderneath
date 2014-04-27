@@ -7,7 +7,7 @@ function Player(socket, world) {
 	this.id = socket.id;
 	this.isGod = false;
 	this.life = 100;	
-	this.points = 0;
+	this.points = 1;
 	
 	this.generatePosition(world);
 }
