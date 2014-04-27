@@ -24,6 +24,12 @@ Cursor.prototype.frame = function(keyboard) {
 	else if (keyboard.status[KEY_RIGHT]) {
 		this.move(this.x + 1, this.y);		
 	}	
+	else if (keyboard.status[KEY_X]) {
+		socket.emit('addStrengthToTile', this.x, this.y);
+	}
+	else if (keyboard.status[KEY_V]) {
+		socket.emit('removeStrengthToTile', this.x, this.y);		
+	}
 };
 
 Cursor.prototype.draw = function(canvas) {

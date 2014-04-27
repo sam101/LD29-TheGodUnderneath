@@ -115,13 +115,15 @@ World.prototype.addStrengthToTile = function(socket, x, y) {
 		return;
 	}
 
-	if (this.getMinDistance(x,y) < MIN_PLAYER_DISTANCE) {
+	if (this.getMinDistance(x,y) < common.MIN_PLAYER_DISTANCE) {
 		console.log(socket.id + " is too close from a player");
 		return;
 	}	
 	
+	var tile = this.tiles[y][x];
 	if (tile.r < 100) {
 		tile.addStrength(21);
+		this.sendTileChanged(x, y);
 	}
 };
 
@@ -133,13 +135,15 @@ World.prototype.removeStrengthToTile = function(socket, x, y) {
 		return;
 	}
 	
-	if (this.getMinDistance(x,y) < MIN_PLAYER_DISTANCE) {
+	if (this.getMinDistance(x,y) < common.MIN_PLAYER_DISTANCE) {
 		console.log(socket.id + " is too close from a player");
 		return;
 	}
 	
+	var tile = this.tiles[y][x];
 	if (tile.r > 0) {
 		tile.removeStrength(21);
+		this.sendTileChanged(x, y);
 	}
 };
 

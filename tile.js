@@ -4,7 +4,7 @@ function Tile(type, resistance) {
 }
 
 Tile.prototype.addStrength = function(r) {
-	this.r -= r;
+	this.r += r;
 	this.r = this.r > 100 ? 100 : this.r;
 };
 

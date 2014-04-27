@@ -84,6 +84,24 @@ function handlePlayer(socket) {
 			world.movePlayer(socket, x, y);
 		});		
 	});
+	
+	socket.on('addStrengthToTile', function(x,y) {
+		socket.get('world', function(err, world) {
+			if (err) {
+				return;
+			}			
+			world.addStrengthToTile(socket, x, y);
+		});				
+	});
+	
+	socket.on('removeStrengthToTile', function(x,y) {
+		socket.get('world', function(err, world) {
+			if (err) {
+				return;
+			}			
+			world.removeStrengthToTile(socket, x, y);
+		});						
+	});
 };
 
 setInterval(changeGod, common.CHANGE_GOD_INTERVAL);
