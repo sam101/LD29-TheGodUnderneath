@@ -218,6 +218,7 @@ World.prototype.sendInitialData = function(socket) {
 		tiles: this.tiles,
 		goal: this.goal,
 		id: this.id,
+		size: this.size,
 		player: this.players[socket.id]
 	};
 	socket.emit('initialData', initialData);					
@@ -249,6 +250,12 @@ World.prototype.sendAllPlayersData = function(socket) {
 			};
 			socket.emit('otherPlayerData', data);			
 		}
+	}
+};
+
+World.prototype.sendSize = function() {
+	for (var key in this.sockets) {
+		this.sockets[key].emit('changeSize', this.size);
 	}
 };
 

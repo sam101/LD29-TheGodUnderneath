@@ -10,7 +10,7 @@ function Game(data) {
 	this.canvas.height = 12 * TILE_SIZE + 8;	
 	
 	this.id = data.id;
-	$('#playerCount').html('World ' + this.id + ' : X players');
+	this.changeSize(data.size);
 	
 	this.cursor = new Cursor();
 	this.goal = new Goal(data.goal);
@@ -45,6 +45,11 @@ function Game(data) {
 	this.lastTime = Date.now();
 }
 
+Game.prototype.changeSize = function(size) {
+	this.size = size;	
+	$('#playerCount').html('World ' + this.id + ' : ' + this.size + ' players');	
+};
+
 Game.prototype.frame = function() {
 	this.diff += Date.now() - this.lastTime;
 	this.lastTime = Date.now();
@@ -70,6 +75,7 @@ Game.prototype.frame = function() {
 };
 
 Game.prototype.draw = function() {
+	var game = this;
 	if (! this.started) {
 		return;
 	}
@@ -91,4 +97,4 @@ Game.prototype.draw = function() {
 	}
 
 	window.requestAnimationFrame(function() { game.draw(); });
-}; 
+}; 	

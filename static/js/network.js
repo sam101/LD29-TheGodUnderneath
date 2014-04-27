@@ -3,13 +3,27 @@ function initGame() {
 	// Connect to the server
 	socket = io.connect('http://localhost/');
 	
-	// Called on initialisation, when the server sends the game data to the client
-	socket.on('initialData', function(data) {
-		$('#info').html('');
-		$('#godMode').hide();
-		$('#normalMode').slideDown(ANIMATION_DELAY);
-		game = new Game(data);
+	socket.on('changeMode', function(isGod) {
+		if (isGod) {
+			$('#normalMode').hide();
+			$('#godMode').slideDown(ANIMATION_DELAY);
+		}
+		else {
+			$('#godMode').hide();
+			$('#normalMode').slideDown(ANIMATION_DELAY);
+		}
+		game.player.isGod = isGod;
+	});	
+	
+	socket.on('changeSize', function(size) {
+		game.changeSize(size);
 	});
+	
+	socket.on('changeWorld', function(data) {
+		game.world.data = data.tiles;
+		game.goal = new Goal(data.goal);
+		game.world.player = new Player(data.player);
+	});	
 	
 	socket.on('disconnect', function() {
 		game.started = false;
@@ -29,30 +43,14 @@ function initGame() {
 		gameOver(points);
 	});
 	
-	socket.on('changeWorld', function(data) {
-		game.world.data = data.tiles;
-		game.goal = new Goal(data.goal);
-		game.world.player = new Player(data.player);
-	});
-	
-	socket.on('changeMode', function(isGod) {
-		if (isGod) {
-			$('#normalMode').hide();
-			$('#godMode').slideDown(ANIMATION_DELAY);
-		}
-		else {
-			$('#godMode').hide();
-			$('#normalMode').slideDown(ANIMATION_DELAY);
-		}
-		game.player.isGod = isGod;
-	});
-	
-	socket.on('updateLife', function(life) {
-		if (game.started) {
-			game.lifebar.updateLife(life);
-		}
-	});
-	
+	// Called on initialisation, when the server sends the game data to the client
+	socket.on('initialData', function(data) {
+		$('#info').html('');
+		$('#godMode').hide();
+		$('#normalMode').slideDown(ANIMATION_DELAY);
+		game = new Game(data);
+	});	
+
 	socket.on('otherPlayerData', function(data) {
 		if (game.started) {
 			game.otherPlayers.updatePosition(data);
@@ -61,13 +59,20 @@ function initGame() {
 	
 	socket.on('removePlayer', function(id) {
 		if (game.started) {
-			game.otherPlayers.removePlayer(data);
+			game.players = 
+			game.otherPlayers.removePlayer(id);
 		}
-	});
+	});	
 	
 	socket.on('tileData', function(data) {
 		if (game.started) {
 			game.world.updateTile(data.x, data.y, data.tile);
 		}
-	});
+	});	
+	
+	socket.on('updateLife', function(life) {
+		if (game.started) {
+			game.lifebar.updateLife(life);
+		}
+	});	
 }
