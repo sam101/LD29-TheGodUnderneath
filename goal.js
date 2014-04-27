@@ -2,8 +2,8 @@ var common = require('./common');
 var random = require('./random');
 
 function Goal() {
-	this.x = random.randInt(0, common.WIDTH);
-	this.y = random.randInt(0, common.HEIGHT);
+	this.x = random.randInt(1, common.WIDTH - 1);
+	this.y = random.randInt(1, common.HEIGHT - 1);
 }
 
 Goal.prototype.isAtGoal = function(player) {
