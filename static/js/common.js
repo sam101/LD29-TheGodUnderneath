@@ -1,20 +1,20 @@
-const TILE_SIZE = 32;
-const WIDTH = 16;
-const HEIGHT = 12;
+ TILE_SIZE = 32;
+ WIDTH = 16;
+ HEIGHT = 12;
 
-const KEY_LEFT = 37;
-const KEY_UP = 38;
-const KEY_RIGHT = 39;
-const KEY_DOWN = 40;
-const KEY_C = 67;
-const KEY_X = 88;
-const KEY_V = 86;
-const KEY_ENTER = 13;
+ KEY_LEFT = 37;
+ KEY_UP = 38;
+ KEY_RIGHT = 39;
+ KEY_DOWN = 40;
+ KEY_C = 67;
+ KEY_X = 88;
+ KEY_V = 86;
+ KEY_ENTER = 13;
 
-const FRAME_TIME = 20;
-const GUESS_LIFE = 0.3;
+ FRAME_TIME = 20;
+ GUESS_LIFE = 0.3;
 
-const MIN_PLAYER_DISTANCE = 3;
+ MIN_PLAYER_DISTANCE = 3;
 
-const INTRODUCTION_DELAY = 500;
-const ANIMATION_DELAY = 500;
+ INTRODUCTION_DELAY = 500;
+ ANIMATION_DELAY = 500;
