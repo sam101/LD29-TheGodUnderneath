@@ -77,6 +77,10 @@ World.prototype.delPlayer = function(socket) {
 World.prototype.movePlayer = function(socket, x, y) {
 	var player = this.players[socket.id];
 	
+	if (! player) {
+		return;
+	}
+	
 	if (player.isGod) {
 		console.log(socket.id + " is god, he can't move");
 		return;
@@ -110,6 +114,9 @@ World.prototype.attackTile = function(socket, x, y) {
 	}
 	
 	var player = this.players[socket.id];
+	if (! player) {
+		return;
+	}
 	
 	if (player.isGod) {
 		console.log(socket.id + " is god, he can't attack");
@@ -136,6 +143,10 @@ World.prototype.attackTile = function(socket, x, y) {
 
 World.prototype.addStrengthToTile = function(socket, x, y) {
 	var player = this.players[socket.id];
+
+	if (! player) {
+		return;
+	}
 	
 	if (! player.isGod) {
 		console.log(socket.id + " is not god");
@@ -156,6 +167,10 @@ World.prototype.addStrengthToTile = function(socket, x, y) {
 
 World.prototype.removeStrengthToTile = function(socket, x, y) {
 	var player = this.players[socket.id];
+
+	if (! player) {
+		return;
+	}
 	
 	if (! player.isGod) {
 		console.log(socket.id + " is not god");
