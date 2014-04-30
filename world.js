@@ -351,6 +351,9 @@ World.prototype.getMinDistance = function(player, x, y) {
  */
 World.prototype.addRock = function(socket, x, y) {
 	console.log("Add rock " + socket.id + " (" + x + "," + y + ")");
+	if (! this.players[socket.id]) {
+		return;
+	}
 	if (! this.players[socket.id].isGod) {
 		console.log(socket.id + " tried to add a rock while not being a god");
 	}
